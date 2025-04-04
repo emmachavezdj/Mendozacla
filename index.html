@@ -114,7 +114,7 @@
   </div>
 
   <script>
-    // Configuración de Firebase (Modo Global)
+    // Configuración de Firebase (modo global)
     const firebaseConfig = {
       apiKey: "AIzaSyDABfHLvJrOaPtUgTMtM54M2qY8PRityL0",
       authDomain: "mzaclasificados.firebaseapp.com",
@@ -124,8 +124,10 @@
       appId: "1:133690992144:web:114048a35f647185874c95"
     };
 
-    // Inicializar Firebase con la API global 'firebase'
+    // Inicializar Firebase (modo global)
     firebase.initializeApp(firebaseConfig);
+
+    // Obtener referencia a Firestore
     const db = firebase.firestore();
 
     // Función para publicar un aviso en Firestore
@@ -139,11 +141,11 @@
       if (nombre && telefono && mensaje) {
         db.collection("avisos")
           .add({
-            nombre: nombre,
-            telefono: telefono,
-            tipo: tipo,
+            nombre,
+            telefono,
+            tipo,
             zona: zonaSelect,
-            mensaje: mensaje,
+            mensaje,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           })
           .then(() => {
@@ -192,4 +194,5 @@
   </script>
 </body>
 </html>
+
 
