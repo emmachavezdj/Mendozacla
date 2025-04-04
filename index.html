@@ -1,149 +1,155 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOLA MENDOZA - Clasificados</title>
-    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-        h1 {
-            color: #ff6600;
-        }
-        .zona {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 10px;
-            cursor: pointer;
-            color: #0066cc;
-            text-decoration: underline;
-        }
-        .clasificados {
-            display: none;
-            margin-top: 10px;
-        }
-        .formulario {
-            margin-top: 20px;
-            padding: 10px;
-            background: white;
-            display: inline-block;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        input, textarea, select {
-            display: block;
-            width: 100%;
-            margin: 10px 0;
-            padding: 5px;
-        }
-        button {
-            background: #ff6600;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-        #whatsapp {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #ff6600;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOLA MENDOZA - Clasificados</title>
+  <!-- Cargar Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+    h1 {
+      color: #ff6600;
+    }
+    .zona {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 10px;
+      cursor: pointer;
+      color: #0066cc;
+      text-decoration: underline;
+    }
+    .clasificados {
+      display: none;
+      margin-top: 10px;
+    }
+    .formulario {
+      margin-top: 20px;
+      padding: 10px;
+      background: white;
+      display: inline-block;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input, textarea, select {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 5px;
+    }
+    button {
+      background: #ff6600;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+    #whatsapp {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #ff6600;
+    }
+  </style>
 </head>
 <body>
-    <h1>HOLA MENDOZA</h1>
-    <h2>Clasificados</h2>
+  <h1>HOLA MENDOZA</h1>
+  <h2>Clasificados</h2>
 
-    <div id="zonas">
-        <div class="zona" onclick="mostrarClasificados('corralitos')">Corralitos</div>
-        <div class="zona" onclick="mostrarClasificados('rodeo')">Rodeo de la Cruz</div>
-        <div class="zona" onclick="mostrarClasificados('km8')">Km 8</div>
-        <div class="zona" onclick="mostrarClasificados('godoy')">Godoy Cruz</div>
-        <div class="zona" onclick="mostrarClasificados('lasheras')">Las Heras</div>
-        <div class="zona" onclick="mostrarClasificados('guaymallen')">Guaymallén</div>
-        <div class="zona" onclick="mostrarClasificados('maipu')">Maipú</div>
-        <div class="zona" onclick="mostrarClasificados('lavalle')">Lavalle</div>
-    </div>
+  <div id="zonas">
+    <div class="zona" onclick="mostrarClasificados('corralitos')">Corralitos</div>
+    <div class="zona" onclick="mostrarClasificados('rodeo')">Rodeo de la Cruz</div>
+    <div class="zona" onclick="mostrarClasificados('km8')">Km 8</div>
+    <div class="zona" onclick="mostrarClasificados('godoy')">Godoy Cruz</div>
+    <div class="zona" onclick="mostrarClasificados('lasheras')">Las Heras</div>
+    <div class="zona" onclick="mostrarClasificados('guaymallen')">Guaymallén</div>
+    <div class="zona" onclick="mostrarClasificados('maipu')">Maipú</div>
+    <div class="zona" onclick="mostrarClasificados('lavalle')">Lavalle</div>
+  </div>
 
-    <div id="clasificados"></div>
+  <div id="clasificados"></div>
 
-    <div class="formulario">
-        <h3>Publicar un aviso</h3>
-        <input type="text" id="nombre" placeholder="Tu nombre">
-        <input type="text" id="telefono" placeholder="Tu teléfono">
-        <select id="tipo">
-            <option value="venta">Venta</option>
-            <option value="aviso">Aviso</option>
-        </select>
-        <select id="zona">
-            <option value="corralitos">Corralitos</option>
-            <option value="rodeo">Rodeo de la Cruz</option>
-            <option value="km8">Km 8</option>
-            <option value="godoy">Godoy Cruz</option>
-            <option value="lasheras">Las Heras</option>
-            <option value="guaymallen">Guaymallén</option>
-            <option value="maipu">Maipú</option>
-            <option value="lavalle">Lavalle</option>
-        </select>
-        <textarea id="mensaje" placeholder="Escribe tu aviso aquí..."></textarea>
-        <button onclick="publicarAviso()">Publicar</button>
-    </div>
+  <div class="formulario">
+    <h3>Publicar un aviso</h3>
+    <input type="text" id="nombre" placeholder="Tu nombre">
+    <input type="text" id="telefono" placeholder="Tu teléfono">
+    <select id="tipo">
+      <option value="venta">Venta</option>
+      <option value="aviso">Aviso</option>
+    </select>
+    <select id="zona">
+      <option value="corralitos">Corralitos</option>
+      <option value="rodeo">Rodeo de la Cruz</option>
+      <option value="km8">Km 8</option>
+      <option value="godoy">Godoy Cruz</option>
+      <option value="lasheras">Las Heras</option>
+      <option value="guaymallen">Guaymallén</option>
+      <option value="maipu">Maipú</option>
+      <option value="lavalle">Lavalle</option>
+    </select>
+    <textarea id="mensaje" placeholder="Escribe tu aviso aquí..."></textarea>
+    <button onclick="publicarAviso()">Publicar</button>
+  </div>
 
-    <div id="whatsapp">
-        ¿Querés una publicidad de tu negocio? <br>
-        <a href="https://wa.me/2615915946" target="_blank">Contactame por WhatsApp</a>
-    </div>
+  <div id="whatsapp">
+    ¿Querés una publicidad de tu negocio? <br>
+    <a href="https://wa.me/2615915946" target="_blank">Contactame por WhatsApp</a>
+  </div>
 
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyDABfHLvJrOaPtUgTMtM54M2qY8PRityL0",
-            authDomain: "mzaclasificados.firebaseapp.com",
-            projectId: "mzaclasificados",
-            storageBucket: "mzaclasificados.appspot.com",
-            messagingSenderId: "133690992144",
-            appId: "1:133690992144:web:114048a35f647185874c95"
-        };
-        
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+  <script>
+    // Configuración de Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyDABfHLvJrOaPtUgTMtM54M2qY8PRityL0",
+      authDomain: "mzaclasificados.firebaseapp.com",
+      projectId: "mzaclasificados",
+      storageBucket: "mzaclasificados.appspot.com",
+      messagingSenderId: "133690992144",
+      appId: "1:133690992144:web:114048a35f647185874c95"
+    };
 
-        function mostrarClasificados(zona) {
-            let clasificadosDiv = document.getElementById("clasificados");
-            clasificadosDiv.innerHTML = "<h3>Clasificados en " + zona + "</h3>";
-            clasificadosDiv.style.display = "block";
-        }
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-        function publicarAviso() {
-            let nombre = document.getElementById("nombre").value;
-            let telefono = document.getElementById("telefono").value;
-            let tipo = document.getElementById("tipo").value;
-            let zona = document.getElementById("zona").value;
-            let mensaje = document.getElementById("mensaje").value;
+    // Mostrar zona seleccionada (esto es solo para mostrar el encabezado, no filtra anuncios en este ejemplo)
+    function mostrarClasificados(zona) {
+      let clasificadosDiv = document.getElementById("clasificados");
+      clasificadosDiv.innerHTML = "<h3>Clasificados en " + zona + "</h3>";
+      clasificadosDiv.style.display = "block";
+    }
 
-            if (nombre && telefono && mensaje) {
-                db.collection("avisos").add({
-                    nombre: nombre,
-                    telefono: telefono,
-                    tipo: tipo,
-                    zona: zona,
-                    mensaje: mensaje,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                })
-                .then(() => {
-                    alert("Aviso publicado correctamente");
-                })
-                .catch((error) => {
-                    console.error("Error al publicar el aviso: ", error);
-                });
-            } else {
-                alert("Por favor, completa todos los campos.");
-            }
-        }
-    </script>
+    // Publicar aviso en Firestore
+    function publicarAviso() {
+      let nombre = document.getElementById("nombre").value;
+      let telefono = document.getElementById("telefono").value;
+      let tipo = document.getElementById("tipo").value;
+      let zona = document.getElementById("zona").value;
+      let mensaje = document.getElementById("mensaje").value;
+
+      if (nombre && telefono && mensaje) {
+        db.collection("avisos").add({
+          nombre: nombre,
+          telefono: telefono,
+          tipo: tipo,
+          zona: zona,
+          mensaje: mensaje,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(() => {
+          alert("Aviso publicado correctamente");
+        })
+        .catch((error) => {
+          console.error("Error al publicar el aviso: ", error);
+        });
+      } else {
+        alert("Por favor, completa todos los campos.");
+      }
+    }
+  </script>
 </body>
 </html>
+
