@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HOLA MENDOZA - Clasificados</title>
-  <!-- Cargar Firebase en modo global -->
+  <!-- Cargar Firebase en modo global (sin usar import) -->
   <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
   <style>
@@ -52,6 +52,7 @@
       background: white;
       padding: 20px;
       border-radius: 10px;
+      display: none;
     }
     .formulario {
       margin: 20px auto;
@@ -115,7 +116,7 @@
   </header>
 
   <!-- Sección de Zonas -->
-  <div class="zona-container">
+  <div class="zona-container" id="zonaContainer">
     <div class="zona" onclick="mostrarClasificados('corralitos')">Corralitos</div>
     <div class="zona" onclick="mostrarClasificados('rodeo')">Rodeo de la Cruz</div>
     <div class="zona" onclick="mostrarClasificados('km8')">Km 8</div>
@@ -127,7 +128,7 @@
   </div>
 
   <!-- Contenedor para mostrar avisos de la zona seleccionada -->
-  <div id="clasificados" class="clasificados" style="display:none;"></div>
+  <div id="clasificados" class="clasificados"></div>
 
   <!-- Formulario para publicar avisos -->
   <div class="formulario">
@@ -157,9 +158,10 @@
     <a href="https://wa.me/2615915946" target="_blank">Contactame por WhatsApp</a>
   </div>
 
-  <!-- Scripts de Firebase -->
   <script>
-    // Configuración de Firebase (modo global)
+    // ----------------------------
+    // 1) Configuración de Firebase
+    // ----------------------------
     const firebaseConfig = {
       apiKey: "AIzaSyDABfHLvJrOaPtUgTMtM54M2qY8PRityL0",
       authDomain: "mzaclasificados.firebaseapp.com",
@@ -169,13 +171,15 @@
       appId: "1:133690992144:web:114048a35f647185874c95"
     };
 
-    // Inicializar Firebase (modo global)
+    // Inicializar Firebase en modo global
     firebase.initializeApp(firebaseConfig);
 
     // Obtener referencia a Firestore
     const db = firebase.firestore();
 
-    // Función para publicar un aviso en Firestore
+    // ------------------------------
+    // 2) Función para Publicar Aviso
+    // ------------------------------
     function publicarAviso() {
       const nombre = document.getElementById("nombre").value;
       const telefono = document.getElementById("telefono").value;
@@ -191,7 +195,7 @@
             tipo,
             zona: zonaSelect,
             mensaje,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
           })
           .then(() => {
             alert("Aviso publicado correctamente");
@@ -204,7 +208,9 @@
       }
     }
 
-    // Función para mostrar avisos en tiempo real filtrados por zona
+    // ----------------------------------------------------
+    // 3) Función para mostrar avisos en tiempo real (zona)
+    // ----------------------------------------------------
     function mostrarClasificados(zona) {
       const clasificadosDiv = document.getElementById("clasificados");
       clasificadosDiv.style.display = "block"; // Mostrar contenedor
@@ -236,6 +242,7 @@
   </script>
 </body>
 </html>
+
 
 
 
