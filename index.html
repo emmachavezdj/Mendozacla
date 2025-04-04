@@ -4,74 +4,118 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HOLA MENDOZA - Clasificados</title>
-  <!-- Cargar Firebase en modo global (sin módulos) -->
+  <!-- Cargar Firebase en modo global -->
   <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background: linear-gradient(to bottom right, #ffcc66, #ff6600);
       text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #ff6600;
+      color: white;
       padding: 20px;
     }
     h1 {
-      color: #ff6600;
+      font-size: 3em;
+      margin: 0;
+    }
+    h2 {
+      margin: 10px 0;
+    }
+    .zona-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 20px auto;
+      max-width: 800px;
     }
     .zona {
       font-size: 20px;
       font-weight: bold;
       margin: 10px;
       cursor: pointer;
-      color: #0066cc;
-      text-decoration: underline;
+      color: white;
+      background-color: #0066cc;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
     }
     .clasificados {
-      margin-top: 10px;
+      margin: 20px auto;
+      max-width: 800px;
+      text-align: left;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
     }
     .formulario {
-      margin-top: 20px;
-      padding: 10px;
+      margin: 20px auto;
+      padding: 20px;
       background: white;
       display: inline-block;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      max-width: 600px;
+      text-align: left;
+    }
+    .formulario h3 {
+      margin-top: 0;
+      color: #ff6600;
     }
     input, textarea, select {
       display: block;
       width: 100%;
       margin: 10px 0;
-      padding: 5px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
     button {
       background: #ff6600;
       color: white;
       border: none;
-      padding: 10px;
+      padding: 12px 20px;
       cursor: pointer;
-      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 5px;
     }
     .aviso {
       border: 1px solid #ddd;
       background: #fff;
-      margin: 10px auto;
+      margin: 10px 0;
       padding: 10px;
       border-radius: 5px;
-      text-align: left;
-      max-width: 600px;
+    }
+    .aviso h4 {
+      margin: 0;
+      color: #ff6600;
     }
     #whatsapp {
-      margin-top: 20px;
+      margin: 20px;
       font-size: 18px;
-      color: #ff6600;
+      color: #fff;
+    }
+    #whatsapp a {
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>HOLA MENDOZA</h1>
-  <h2>Clasificados</h2>
+  <header>
+    <h1>HOLA MENDOZA</h1>
+    <h2>Clasificados</h2>
+  </header>
 
   <!-- Sección de Zonas -->
-  <div id="zonas">
+  <div class="zona-container">
     <div class="zona" onclick="mostrarClasificados('corralitos')">Corralitos</div>
     <div class="zona" onclick="mostrarClasificados('rodeo')">Rodeo de la Cruz</div>
     <div class="zona" onclick="mostrarClasificados('km8')">Km 8</div>
@@ -82,8 +126,8 @@
     <div class="zona" onclick="mostrarClasificados('lavalle')">Lavalle</div>
   </div>
 
-  <!-- Contenedor para mostrar los avisos de la zona seleccionada -->
-  <div id="clasificados" class="clasificados"></div>
+  <!-- Contenedor para mostrar avisos de la zona seleccionada -->
+  <div id="clasificados" class="clasificados" style="display:none;"></div>
 
   <!-- Formulario para publicar avisos -->
   <div class="formulario">
@@ -104,7 +148,7 @@
       <option value="maipu">Maipú</option>
       <option value="lavalle">Lavalle</option>
     </select>
-    <textarea id="mensaje" placeholder="Escribe tu aviso aquí..."></textarea>
+    <textarea id="mensaje" placeholder="Escribe tu aviso aquí..." rows="4"></textarea>
     <button onclick="publicarAviso()">Publicar</button>
   </div>
 
@@ -113,6 +157,7 @@
     <a href="https://wa.me/2615915946" target="_blank">Contactame por WhatsApp</a>
   </div>
 
+  <!-- Scripts de Firebase -->
   <script>
     // Configuración de Firebase (modo global)
     const firebaseConfig = {
@@ -162,7 +207,7 @@
     // Función para mostrar avisos en tiempo real filtrados por zona
     function mostrarClasificados(zona) {
       const clasificadosDiv = document.getElementById("clasificados");
-      clasificadosDiv.innerHTML = `<h3>Clasificados en ${zona}</h3>`;
+      clasificadosDiv.style.display = "block"; // Mostrar contenedor
 
       // Escuchar en tiempo real los avisos de la zona seleccionada
       db.collection("avisos")
@@ -187,12 +232,10 @@
             console.error("Error al obtener avisos: ", error);
           }
         );
-
-      // Mostrar el contenedor de clasificados
-      clasificadosDiv.style.display = "block";
     }
   </script>
 </body>
 </html>
+
 
 
