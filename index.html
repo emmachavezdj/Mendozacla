@@ -101,15 +101,23 @@
   </div>
 
   <script>
-    // Configuración de Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyDABfHLvJrOaPtUgTMtM54M2qY8PRityL0",
-      authDomain: "mzaclasificados.firebaseapp.com",
-      projectId: "mzaclasificados",
-      storageBucket: "mzaclasificados.appspot.com",
-      messagingSenderId: "133690992144",
-      appId: "1:133690992144:web:114048a35f647185874c95"
-    };
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDABfHLvJrOaPtUgTMtM54M2qY8PRityL0",
+  authDomain: "mzaclasificados.firebaseapp.com",
+  projectId: "mzaclasificados",
+  storageBucket: "mzaclasificados.firebasestorage.app",
+  messagingSenderId: "133690992144",
+  appId: "1:133690992144:web:114048a35f647185874c95"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
     // Inicializar Firebase
     firebase.initializeApp(firebaseConfig);
